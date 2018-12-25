@@ -15,23 +15,27 @@ type AccountController struct {
 	Usecase account.Usecase
 }
 
-// GetOutboundRate - Route handler to fetch outbound rate
+// Authenticate
 func (r *AccountController) Authenticate(c echo.Context) error {
-	userName := c.QueryParam("userName")
+	var userDetails map[string]interface{}
+	c.Bind(&userDetails)
+	//authId := c.Param("auth_id")
+	userName := userDetails["userName"].(string)
+
 	ctx := c.Request().Context()
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	outboundCharge, _ := r.Usecase.AuthenticateUser(ctx,userName)
-	return c.JSON(http.StatusOK, outboundCharge)
+	authResponse, _ := r.Usecase.AuthenticateUser(ctx,userName)
+	return c.JSON(http.StatusOK, authResponse)
 }
 
 // NewRatesController - Initialize the controller object
-func NewRatesController(e *echo.Echo, accoutnUsecase account.Usecase) {
+func NewAccountController(e *echo.Echo, accoutnUsecase account.Usecase) {
 	handler := &AccountController{
 		Usecase: accoutnUsecase,
 	}
 
 	//zt/account/<account-id>/rates/outbound?toNumber<num>&fromNumber<num>
-	e.GET("/v1/account/authentication/", handler.Authenticate)
+	e.POST("/v1/account/authentication/", handler.Authenticate)
 }

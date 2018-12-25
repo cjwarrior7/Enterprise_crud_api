@@ -28,7 +28,7 @@ func main() {
 		dbAdapter := adapterRepository.NewDBAdapterRepository(config)
 		accountRepo := accountingRepo.NewAccountRepository(dbAdapter)
 		accountUc := accountingUsecase.NewAccountUseCase(accountRepo)
-		accountingController.NewRatesController(e,accountUc)
+		accountingController.NewAccountController(e,accountUc)
 
 		if err := e.Start("0.0.0.0:10000"); err != nil {
 			logger.WithError(err).Fatal("Unable to start the accounting service")
