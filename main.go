@@ -6,6 +6,10 @@ import (
 	"github.com/labstack/echo/middleware"
 	logging "accountingService/logger"
 	"accountingService/config"
+	adapterRepository "accountingService/adapters/repository"
+	accountingRepo "accountingService/account/repository"
+	accountingUsecase "accountingService/account/usecases"
+	accountingController "accountingService/account/controller"
 )
 
 var onceRest sync.Once
@@ -20,6 +24,11 @@ func main() {
 
 		e.Use(middleware.Logger())
 		e.Use(middleware.Recover())
+
+		dbAdapter := adapterRepository.NewDBAdapterRepository(config)
+		accountRepo := accountingRepo.NewAccountRepository(dbAdapter)
+		accountUc := accountingUsecase.NewAccountUseCase(accountRepo)
+		accountingController.NewRatesController(e,accountUc)
 
 		if err := e.Start("0.0.0.0:10000"); err != nil {
 			logger.WithError(err).Fatal("Unable to start the accounting service")
