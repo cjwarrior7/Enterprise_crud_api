@@ -28,7 +28,7 @@ func  (c *accountRepository) GetByUsername(ctx context.Context, username string,
 	io.WriteString(hashMd5, secret)
 	md5Hash := fmt.Sprintf("%x", hashMd5.Sum(nil))
 
-	query := fmt.Sprintf("SELECT id,is_superuser FROM accounts_login WHERE is_active=true and username = '%s' " +
+	query := fmt.Sprintf("SELECT id,is_superuser FROM account_login WHERE is_active=true and username = '%s' " +
 		"and password = '%s'", username, md5Hash)
 	rows, err := c.DbConn.QueryContext(ctx, query)
 	if err != nil {
