@@ -3,5 +3,5 @@ package models
 // Account
 type Account struct {
 	ID      int64  `json:"id"`
-	Name    string `json:"name"`
+	SuperUser    string `json:"is_superuser"`
 }

@@ -1,9 +1,10 @@
 package account
 
 import (
-"context"
-"accountingService/account"
-"accountingService/models"
+	"context"
+	"accountingService/account"
+	"accountingService/models"
+	"accountingService/logger"
 )
 
 type accountUsecase struct {
@@ -11,7 +12,8 @@ type accountUsecase struct {
 }
 
 func (r *accountUsecase) AuthenticateUser(ctx context.Context, username string) (*models.Account, error) {
-	return r.actRepo.GetByUsername(ctx,username)
+	logger.Logger.Info("Request Received into AuthenticateUser UseCase")
+	return r.actRepo.GetByUsername(ctx, username)
 }
 
 //NewRoutesUseCase creates concrete instance of routes.Usecase

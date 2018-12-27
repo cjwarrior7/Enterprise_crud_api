@@ -20,6 +20,7 @@ func NewDBAdapterRepository(config *config.Config) *sql.DB {
 		logger.Logger.WithError(err).WithField("connection_string", connectionString).Errorf("Unable to connect to database")
 		return nil
 	}
+	logger.Logger.WithField("connection_string", connectionString).Info("connect to database")
 	dbConn.SetMaxOpenConns(config.Database.PoolSize)
 	dbConn.SetMaxIdleConns(config.Database.PoolSize)
 	return dbConn

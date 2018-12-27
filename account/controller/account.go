@@ -7,7 +7,7 @@ import (
 "github.com/labstack/echo"
 
 "accountingService/account"
-
+"accountingService/logger"
 )
 
 // RatesController - Controller for rating
@@ -21,7 +21,7 @@ func (r *AccountController) Authenticate(c echo.Context) error {
 	c.Bind(&userDetails)
 	//authId := c.Param("auth_id")
 	userName := userDetails["userName"].(string)
-
+	logger.Logger.Info("AUTH Request Received with UserName:" + userName)
 	ctx := c.Request().Context()
 	if ctx == nil {
 		ctx = context.Background()
