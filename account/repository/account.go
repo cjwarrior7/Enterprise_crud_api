@@ -21,7 +21,7 @@ func NewAccountRepository(Conn *sql.DB)  account.Repository{
 }
 
 func  (c *accountRepository) GetByUsername(ctx context.Context, username string) (*models.Account, error) {
-	query := fmt.Sprintf("SELECT id,is_superuser FROM accounts_login WHERE is_active=true and username = %s", username)
+	query := fmt.Sprintf("SELECT id,is_superuser FROM accounts_login WHERE is_active=true and username = '%s'", username)
 	rows, err := c.DbConn.QueryContext(ctx, query)
 	if err != nil {
 		logger.Logger.WithError(err).WithField("query", query).
