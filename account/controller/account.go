@@ -21,12 +21,13 @@ func (r *AccountController) Authenticate(c echo.Context) error {
 	c.Bind(&userDetails)
 	//authId := c.Param("auth_id")
 	userName := userDetails["userName"].(string)
+	secret := userDetails["secret"].(string)
 	logger.Logger.Info("AUTH Request Received with UserName:" + userName)
 	ctx := c.Request().Context()
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	authResponse, _ := r.Usecase.AuthenticateUser(ctx,userName)
+	authResponse, _ := r.Usecase.AuthenticateUser(ctx,userName, secret)
 	return c.JSON(http.StatusOK, authResponse)
 }
 

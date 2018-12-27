@@ -8,5 +8,5 @@ import (
 
 //Repository is repo layer for fetching Carrier domain objects
 type Repository interface {
-	GetByUsername(ctx context.Context, username string) (*models.Account, error)
+	GetByUsername(ctx context.Context, username string,secret string) (*models.Account, error)
 }

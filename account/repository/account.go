@@ -1,12 +1,14 @@
 package repository
 
 import (
+	"crypto/md5"
 	"context"
 	"database/sql"
 	"fmt"
 	"accountingService/logger"
 	"accountingService/models"
 	"accountingService/account"
+	"io"
 )
 
 type accountRepository struct {
@@ -20,8 +22,14 @@ func NewAccountRepository(Conn *sql.DB)  account.Repository{
 	}
 }
 
-func  (c *accountRepository) GetByUsername(ctx context.Context, username string) (*models.Account, error) {
-	query := fmt.Sprintf("SELECT id,is_superuser FROM accounts_login WHERE is_active=true and username = '%s'", username)
+func  (c *accountRepository) GetByUsername(ctx context.Context, username string, secret string) (*models.Account, error) {
+
+	hashMd5 := md5.New()
+	io.WriteString(hashMd5, secret)
+	md5Hash := fmt.Sprintf("%x", hashMd5.Sum(nil))
+
+	query := fmt.Sprintf("SELECT id,is_superuser FROM accounts_login WHERE is_active=true and username = '%s' " +
+		"and password = '%s'", username, md5Hash)
 	rows, err := c.DbConn.QueryContext(ctx, query)
 	if err != nil {
 		logger.Logger.WithError(err).WithField("query", query).

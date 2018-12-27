@@ -7,5 +7,5 @@ import (
 
 //Usecase for routes
 type Usecase interface {
-	AuthenticateUser(ctx context.Context, username string) (*models.Account, error)
+	AuthenticateUser(ctx context.Context, username string, secret string) (*models.Account, error)
 }
