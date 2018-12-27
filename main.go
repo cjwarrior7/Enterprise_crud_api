@@ -24,7 +24,8 @@ func main() {
 
 		e.Use(middleware.Logger())
 		e.Use(middleware.Recover())
-
+		e.Use(middleware.CORS())
+		
 		dbAdapter := adapterRepository.NewDBAdapterRepository(config)
 		accountRepo := accountingRepo.NewAccountRepository(dbAdapter)
 		accountUc := accountingUsecase.NewAccountUseCase(accountRepo)
