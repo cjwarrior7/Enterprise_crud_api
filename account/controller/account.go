@@ -28,6 +28,9 @@ func (r *AccountController) Authenticate(c echo.Context) error {
 		ctx = context.Background()
 	}
 	authResponse, _ := r.Usecase.AuthenticateUser(ctx,userName, secret)
+	if authResponse == nil {
+		return c.JSON(http.StatusUnauthorized, authResponse)
+	}
 	return c.JSON(http.StatusOK, authResponse)
 }
 
