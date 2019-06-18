@@ -1,0 +1,20 @@
+919810198101,harpreet,amritsar,punjab,223###,india,
+919810198102,john,xyz,kerela,223@23,india, 
+919810198103,gulsan,kullu,himachal,4333311223,india,
+@919311211298,gulfaam,lalchowk,Jammu&kashmir,43333112,india,
+919810198101,gulsan,amritsar,punjab,223###,india,                   # repeated
+11111111111,gulfaam,lalchowk,Jammu&kashmir,43333112,india,           # exceeds 11 digit
+9810175438,john,xyz,capetown,43333112,south africa,                  # not have 91
+98101@#q98,greame,xyz,capetown,43333112,south africa,                # err in mobile number
+9198101chandan,chandan,,,,,                                        # err  in mobile number
+9810175436,,,,,india,                                               # not have 91
+919810175647,kalam,rameshwaram,Tamil Nadu,765432,india, 
+919810176112,rahim,,hyderabad,,,
+918912136666,,,,,,
+912136666,,,,,,
+119912136666,,,,,,
+000000000000,,,,,,
+91@1234#8903,,,,,,
+9112345678999,,,,,,
+91123456789999,,,,,,
+1112345678999,,,,,,

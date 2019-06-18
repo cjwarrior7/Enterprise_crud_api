@@ -14,9 +14,11 @@ import (
 func NewDBAdapterRepository(config *config.Config) *sql.DB {
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		config.Database.Host, config.Database.Port, config.Database.User, config.Database.Pass, config.Database.DBName)
+		fmt.Printf("hi:%s",connectionString)
 
-	dbConn, err := sql.Open(config.Database.DBType, connectionString)
+	dbConn, err := sql.Open("postgres", connectionString)//config.Database.DBType
 	if err != nil {
+		fmt.Println("hi erorr:",err)
 		logger.Logger.WithError(err).WithField("connection_string", connectionString).Errorf("Unable to connect to database")
 		return nil
 	}
